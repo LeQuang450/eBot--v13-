@@ -1,7 +1,7 @@
 # eBot-v13
 The lastest version of eBot running discord.js v13
 
-You need to install these packages to ensure it works:
+You need to install (nodejs v16 and) these packages to ensure it works:
 discordjs/builders@1.3.0
 discordjs/rest@1.3.0
 discord-api-types@0.37.19
