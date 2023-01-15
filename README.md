@@ -1,6 +1,8 @@
 # eBot-v13
 The lastest version of eBot running discord.js v13
 
+Please change the Token and ApplicationID in `.env` before using (please read next)
+
 You need to install (nodejs v16 and) these packages to ensure it works:
 discordjs/builders@1.3.0
 discordjs/rest@1.3.0
