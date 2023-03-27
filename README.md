@@ -1,5 +1,5 @@
 # eBot-v13
-The lastest version of eBot running discord.js v13
+The last version of eBot running discord.js v13
 
 Please change the Token and ApplicationID in `.env` before using (please read next)
 
