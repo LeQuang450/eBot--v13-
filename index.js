@@ -9,7 +9,7 @@ const client = new Discord.Client({
     intents: 32767 });
 
     client.on('ready',async () =>{
-    console.log("Beta Bot is Online!")
+    console.log("Bot is Online!")
 
     client.user.setActivity(`/help for more info`, { type: "LISTENING"})
     
@@ -34,18 +34,20 @@ const client = new Discord.Client({
             let reason = args.slice(1).join(" ") || "No reason"
     
             message.channel.send(`${member} just got warned.\nReason: ${reason}`)
+        
         } else if (cmd.toLowerCase() === `${prefix}kick`) {
             if (!args[0]) return message.reply("You need to put someone in this command!")
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(0).join(" ") || x.user.username === args[0]);
-        if(!message.member.permissions.has("KICK_MEMBERS")) return message.reply("Where you put your permission?");
-        if(!message.guild.me.permissions.has("KICK_MEMBERS")) return message.reply("Did you throw my permission to the trash?");
-        if (message.member.id === member.id) return message.reply("Why you kick yourself?");
-        if (!member) return message.reply("Did you kick the wrong user?")
-        if(!member.kickable) return message.reply("Who did I just kick (that user has perms over me)?")
+            const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(0).join(" ") || x.user.username === args[0]);
+            if(!message.member.permissions.has("KICK_MEMBERS")) return message.reply("Where you put your permission?");
+            if(!message.guild.me.permissions.has("KICK_MEMBERS")) return message.reply("Did you throw my permission to the trash?");
+            if (message.member.id === member.id) return message.reply("Why you kick yourself?");
+            if (!member) return message.reply("Did you kick the wrong user?")
+            if(!member.kickable) return message.reply("Who did I just kick (that user has perms over me)?")
     
-        let reason = args.slice(1).join(" ") || "No reason"
+            reason = args.slice(1).join(" ") || "No reason"
     
-            message.channel.send(`${member} just got warned.\nReason: ${reason}`)
+            member.kick({ reason:reason })
+            message.channel.send(`${member} just got kicked.\nReason: ${reason}`)
         
         } else if (cmd.toLowerCase() === `${prefix}ban`) {
             if (!args[0]) return message.reply("You need to put someone in this command!")
@@ -60,6 +62,7 @@ const client = new Discord.Client({
     
             member.ban({ reason:reason })
             message.channel.send(`${member} just got banned.\nReason: ${reason}`)
+        
         } else if (cmd.toLowerCase() === `${prefix}mute`) {
             const muteRole = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
             const muteReason = args.slice(1).join(" ") || "No reason given."
@@ -75,9 +78,10 @@ const client = new Discord.Client({
             const embed = new MessageEmbed()
             .setColor("GREEN")
             .setTitle(' :white_check_mark: That user was **muted** ')
-            .setDescription('If that User can chat, please put the mute role above that user highest role and untick **Send Messages and Create Posts** and **Send Messages in Theards and Posts')
+            .setDescription('If that User can chat, please put the mute role above that user highest role and disable **Send Messages and Create Posts** and **Send Messages in Theards and Posts** premissions')
  
             message.reply({ embeds: [embed] })
+        
         } else if (cmd.toLowerCase() === `${prefix}nickname`) {
             const nnUser = message.mentions.members.first();
             const nnName = args.slice(1).join(" ") || `No Nickname`
